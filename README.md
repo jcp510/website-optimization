@@ -1,5 +1,9 @@
 ## Website Performance Optimization portfolio project
 
+To achieve a PageSpeed score of at least 90 for mobile and desktop for index.html, I inlined the contents of CSS/style.css and discarded the empty file.  I optimized all images using responsive_images grunt task.  I marked both google analytics scripts as well as the js/perfmatters script as async to prevent parser blocking.  I deferred the loading of the non-critical CSS/print.css file.  I optimized the delivery of google web fonts using Web Font Loader.
+
+To render views/pizza.html with a consistent frame rate at 60 FPS when scrolling, I
+
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 To get started, check out the repository and inspect the code.
@@ -32,7 +36,7 @@ Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
 ####Part 2: Optimize Frames per Second in pizza.html
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js.
 
 You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
 
