@@ -421,11 +421,11 @@ var resizePizzas = function(size) {
   }
 
   changeSliderLabel(size);
-
+  // Changes size of pizza images when slider is moved.
   function changePizzaSizes(size) {
     switch(size) {
       case "1":
-        newWidth = 25;
+        var newWidth = 25;
         break;
       case "2":
         newWidth = 33.3;
@@ -484,11 +484,12 @@ function logAverageFrame(times) {
 */
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
-var items = document.getElementsByClassName('mover');
+
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
+  var items = document.getElementsByClassName('mover');
   var itemsLen = items.length;
   var y = document.body.scrollTop / 1250;
   for (var i = 0; i < itemsLen; i++) {
