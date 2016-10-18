@@ -404,6 +404,7 @@ var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
+  // Replace querySelector method with getElementById for performance optimization.
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
@@ -421,6 +422,10 @@ var resizePizzas = function(size) {
   }
 
   changeSliderLabel(size);
+  // Discard determineDx function, non-essential.
+  /* Consolidate sizeSwitcher function into changePizzaSizes, declare newWidth var,
+     change decimal values to whole numbers, replace return statements with break,
+     and discard newSize and dx vars. */
   // Changes size of pizza images when slider is moved.
   function changePizzaSizes(size) {
     switch(size) {
@@ -436,6 +441,9 @@ var resizePizzas = function(size) {
       default:
         console.log("bug in changePizzaSizes");
     }
+    /* Replace querySelectorAll method with getElementsClassName for performance
+       optimization. */
+    // Remove .length calculation from for-loop for performance.
     var ranPizCon = document.getElementsByClassName("randomPizzaContainer");
     var ranPizConLen = ranPizCon.length;
     for (var i = 0; i < ranPizConLen; i++) {
@@ -455,7 +463,8 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-for (var i = 2; i < 100; i++) {
+// 100 pizzas is overkill, 4 are sufficient.
+for (var i = 2; i < 4; i++) {
   var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
@@ -492,10 +501,15 @@ function updatePositions() {
   var items = document.getElementsByClassName('mover');
   var itemsLen = items.length;
   var y = document.body.scrollTop / 1250;
-  for (var i = 0; i < itemsLen; i++) {
-    var phase = Math.sin((y) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  // Remove calculation of phase values from for-loop for performance optimization
+  var phase = [];
+  for (var i = 0; i < 5; i++) {
+      phase.push(Math.sin(y + i) * 100);
   }
+  for (var i = 0; i < itemsLen; i++) {
+      items[i].style.left = items[i].basicLeft + phase[i%5] + 'px';
+  }
+
   window.requestAnimationFrame(updatePositions);
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
@@ -510,12 +524,14 @@ function updatePositions() {
 }
 // Use rAF to decouple scroll event from updatePositions code.
 window.requestAnimationFrame(updatePositions);
-
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i <= 20; i++) {
+  /* Dynamically calculate the number of pizzas needed to fill the screen, based on
+     browser window resolution */
+  var numOfPiz = ((window.innerHeight / s) * cols);
+  for (var i = 0; i < numOfPiz; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza-small.png";
