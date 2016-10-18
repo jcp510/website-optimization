@@ -463,9 +463,10 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-// 100 pizzas is overkill, 4 are sufficient.
-for (var i = 2; i < 4; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
+/* Remove pizzasDiv from, and cache outside of for-loop, so that DOM is not accessed
+   on each iteration. */
+var pizzasDiv = document.getElementById("randomPizzas");
+for (var i = 2; i < 100; i++) {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
